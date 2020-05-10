@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>facebook videó mentő</title>
+</head>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style type="text/css">
+body {
+    font-size: 200%;
+}
+
+.center {
+    margin: auto;
+    width: 60%;
+
+    padding: 10px;
+    text-align: center;
+
+}
+</style>
+
+<body>
+    <div class="center">
+        <input type="text" id="titleid1" placeholder="ide jön a video source">
+        <button onclick="Getlinks()">Getlinks</button>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            1. <label for="">audio</label>
+            <br>
+            <textarea id="textarea1" rows="1" cols="20"></textarea>
+            <button onclick="copy1()">AUDIO LINK KIJELÖLÉSE</button>
+            <br><br>
+            2.
+            <a href="https://online-audio-converter.com" target="_blank">online-audio-converter megnyitása új ablakban</a>
+            <br>
+            <br>
+            <iframe id="audioFrame" src="" width="200" height="100"></iframe>
+        </div>
+        <div class="col-md-6">
+        <h1 id="videoablak"></h1>
+            <iframe id="videoFrame" src="" width="640" height="360"></iframe>
+            
+        </div>
+    </div>
+    <img src="http://www.futonaptar.hu/races/img/facebook.jpg" width="300">
+    <br><br>
+
+  
+    <!--  3. <label for="">video</label>
+    <a href="" target="_blank">VIDEÓ MEGNYITÁSA ÚJ ABLAKBAN</a> -->
+    <script>
+    let sliced;
+ 
+
+    function Getlinks() {
+
+        var str = document.getElementById("titleid1").value;
+        var str2 = document.getElementById("titleid1").value;
+
+        //document.getElementsByClassName("center").style.display = "none";
+        function video() {
+
+            var n1 = str.search("1080p");
+            var n2 = str.search("720p");
+            var n3 = str.search("480p");
+            var n4 = str.search("360p");
+
+            let resolution;
+            let reso;
+
+
+
+            if (n1 > 0) {
+
+                resolution = str.split('1080p');
+
+
+            } else if (n2 > 0) {
+
+
+                resolution = str.split('720p');
+
+
+            } else if (n3 > 0) {
+
+                resolution = str.split('480p');
+
+
+            } else if (n4 > 0) {
+
+                resolution = str.split('360p');
+
+                var test = str.replace(/(\r\n|\n|\r)/gm," ");
+                var patt1 = /(?<=og:video" content=").*?(?=" \/><meta property="og:video:url" content)/;
+                  
+                  var result = test.match(patt1);
+                  //console.log(result[0].toString());
+                  let endresult = result[0].toString().replace(/&amp;/g, "&");
+                  //console.log(str.replace(/(\r\n|\n|\r)/gm," "));
+                 // let reresult = result.replace(/&amp;/g, "&");
+                  document.getElementById("videoablak").innerHTML = "MAX 360P";
+
+                  document.getElementById("videoFrame").src = endresult;
+
+                  return;
+                 // alert(reresult);
+
+            }
+            reso = resolution.slice(1, 2).toString().split('x3CBaseURL>').slice(1, 2).toString().split("x3C/BaseURL>").slice(0, 1).toString();
+
+            sliced = reso.slice(0, reso.length - 1).toString().replace(/&amp;/g, "&");
+
+            //document.getElementsByTagName("a")[1].setAttribute("href", sliced);
+
+            //window.open(sliced);
+            document.getElementById("videoFrame").src = sliced;
+
+        }
+
+        video();
+
+        var audiolink = str2.split('audio:[{url:"').slice(1, 2).toString().split('",start:').slice(0, 1).toString();
+
+
+        document.getElementById("textarea1").innerHTML = audiolink;
+        document.getElementById("audioFrame").src = audiolink;
+
+    }
+
+    let copy1 = () => {
+        var copyText = document.getElementById("textarea1");
+
+        copyText.select();
+        document.execCommand("copy");
+
+    }
+
+
+    // var citrus = res.slice(1,2);
+    // let res2 = citrus.toString();
+    // let res3 = res2.split('",start:');
+    // var citrus2 = res3.slice(0,1);
+    // let citrus3 = citrus2.toString();
+
+    //var res5 = decodeURI(citrus3);
+
+
+    //var result = citrus.match(/(?<=},{url:"\s+).*?(?=\s+",start:)/)
+
+    //document.getElementById('idd').innerHTML = citrus3;
+
+
+    // document.getElementsByTagName("a")[1].setAttribute("href", sliced2 );
+    //console.log("sliced2 " + sliced2 );
+
+    // //var x = document.getElementsByTagName("a")[1].getAttribute("href");
+    // console.log("sliced " + sliced);
+    </script>
+</body>
+
+</html>
